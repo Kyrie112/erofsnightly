@@ -1,26 +1,24 @@
 #!/bin/bash -e
 
-printf "Building kernel in QEMU..."
+# Download dependent libraries and tools
+curl -L https://github.com/lz4/lz4/archive/refs/tags/v1.9.4.tar.gz | tar -zxv
+make BUILD_SHARED=no -C lz4-1.9.4 && lz4libdir=$(pwd)/lz4-1.9.4/lib
+git clone git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git -b experimental-tests
 
-#mkdir -p /tmp/bin
-#export PATH="$PATH:/tmp/bin"
-#wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross \
-#	--no-check-certificate -O /tmp/bin/make.cross
-#chmod +x /tmp/bin/make.cross
-#export COMPILER_INSTALL_PATH="/tmp/0day"
+# Build experimental-test branch of erofs-utils and run basic-test
+cd erofs-utils
+./autogen.sh && ./configure
+sudo make check
 
-# compile kernel source
-mkdir -p /tmp/lowerdir /tmp/kbuild &&
-mount -t erofs -oro /dev/sda /tmp/lowerdir &&
-mount /dev/sdb /mnt &&
-mkdir -p /mnt/upperdir /mnt/workdir
-mount -t overlay -o lowerdir=/tmp/lowerdir,upperdir=/mnt/upperdir,workdir=/mnt/workdir \
-       overlay /tmp/kbuild &&
-cd /tmp/kbuild &&
-make defconfig ARCH=x86_64 &&
-make ARCH=x86_64 -j5 &&
-make mrproper && cd / &&
-umount /tmp/kbuild &&
-umount /tmp/lowerdir &&
-echo 0 > /mnt/exitstatus && sync &&
-umount /mnt
+# Prepare test data benchmark
+cd ../ && mkdir silesia out
+wget -O silesia.zip https://mattmahoney.net/dc/silesia.zip
+unzip silesia.zip -d silesia
+erofs-utils/mkfs/mkfs.erofs -C4096 silesia.erofs.img silesia 
+erofs-utils/fuse/erofsfuse silesia.erofs.img out
+
+# Run stress test
+git clone https://github.com/erofs/erofsstress.git
+gcc erofsstress/stress.c -o stress
+./stress -l100 -p3 ./out
+# ./erofs-utils/tests/erofsstress/stress -l100 -p3 ./out
