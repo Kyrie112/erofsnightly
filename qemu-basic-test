@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mem="1G"
+mem="12G"
 args='-zlz4hc,12'
 
 curl https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.4.140.tar.gz | tar -zx
