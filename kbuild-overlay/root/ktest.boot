@@ -1,5 +1,6 @@
 #!/bin/bash -e
 
+printf "Basic tests run in QEMU ..."
 # Download dependent libraries and tools
 curl -L https://github.com/lz4/lz4/archive/refs/tags/v1.9.4.tar.gz | tar -zxv
 make BUILD_SHARED=no -C lz4-1.9.4 && lz4libdir=$(pwd)/lz4-1.9.4/lib
