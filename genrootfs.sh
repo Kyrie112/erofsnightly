@@ -35,7 +35,7 @@ find $ROOTDIR/var/log -type f | xargs rm
 
 # bin/mkfs.erofs -zlz4hc,12 -C32768 --random-pclusterblks $1 $ROOTDIR
 # bin/fsck.erofs $1 || exit 1
-mkfs.ext4 $1
-sudo mount -o loop $1 mnt
-sudo cp -avr $ROOTDIR/* mnt/
-sudo umount mnt
+fallocate -l 1g $1 && mkfs.ext4 $1
+mount $1 mnt
+cp -avr $ROOTDIR/* mnt/
+umount mnt
