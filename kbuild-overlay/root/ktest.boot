@@ -2,6 +2,7 @@
 
 printf "Basic tests run in QEMU ..."
 # Download dependent libraries and tools
+sudo apt-get install curl build-essential git
 curl -L https://github.com/lz4/lz4/archive/refs/tags/v1.9.4.tar.gz | tar -zxv
 make BUILD_SHARED=no -C lz4-1.9.4 && lz4libdir=$(pwd)/lz4-1.9.4/lib
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git -b experimental-tests
