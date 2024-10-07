@@ -18,7 +18,8 @@ if test -f kbuild-packages ; then
 fi
 PACKAGES=$(echo $PACKAGES | sed 's/ /,/g')
 
-apt-get install -y debootstrap make_ext4fs
+apt-get install -y debootstrap
+sudo apt install e2fsprogs
 mkdir -p $ROOTDIR
 debootstrap --variant=minbase --include=$PACKAGES buster $ROOTDIR $MIRROR
 tar -C kbuild-overlay \
