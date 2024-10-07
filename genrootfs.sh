@@ -19,8 +19,7 @@ fi
 PACKAGES=$(echo $PACKAGES | sed 's/ /,/g')
 
 apt-get install -y debootstrap
-sudo apt install e2fsprogs
-mkdir -p $ROOTDIR
+mkdir -p $ROOTDIR mnt
 debootstrap --variant=minbase --include=$PACKAGES buster $ROOTDIR $MIRROR
 tar -C kbuild-overlay \
 	--owner=root --group=root --mode=go+u-w -c . | tar -C $ROOTDIR -x
@@ -36,4 +35,7 @@ find $ROOTDIR/var/log -type f | xargs rm
 
 # bin/mkfs.erofs -zlz4hc,12 -C32768 --random-pclusterblks $1 $ROOTDIR
 # bin/fsck.erofs $1 || exit 1
-make_ext4fs $1 $ROOTDIR
+mkfs.ext4 $1
+sudo mount -o loop $1 mnt
+sudo cp -avr $ROOTDIR/* mnt/
+sudo umount mnt
