@@ -18,7 +18,7 @@ if test -f kbuild-packages ; then
 fi
 PACKAGES=$(echo $PACKAGES | sed 's/ /,/g')
 
-apt-get install -y debootstrap
+apt-get install -y debootstrap make_ext4fs
 mkdir -p $ROOTDIR
 debootstrap --variant=minbase --include=$PACKAGES buster $ROOTDIR $MIRROR
 tar -C kbuild-overlay \
@@ -33,5 +33,6 @@ find $ROOTDIR/usr/share/doc -type d | xargs rmdir --ignore-fail-on-non-empty -p
 rm -rf $ROOTDIR/usr/share/man
 find $ROOTDIR/var/log -type f | xargs rm
 
-bin/mkfs.erofs -zlz4hc,12 -C32768 --random-pclusterblks $1 $ROOTDIR
-bin/fsck.erofs $1 || exit 1
+# bin/mkfs.erofs -zlz4hc,12 -C32768 --random-pclusterblks $1 $ROOTDIR
+# bin/fsck.erofs $1 || exit 1
+make_ext4fs $1 $ROOTDIR
