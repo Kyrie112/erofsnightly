@@ -11,7 +11,7 @@ chmod +x basic_test.sh
 sync
 qemu-system-x86_64 -nographic -serial mon:stdio -m $mem -smp 4 \
 	--accel tcg,thread=multi -kernel $1 \
-	-drive file=$2,index=0,media=disk \
+	-drive file=$2,index=0,readonly,media=cdrom \
 	-hdb linux.erofs.img -hdc overlay.ext4.img \
 	-net nic,model=e1000 -net user \
-	-append "net.ifnames=0 root=/dev/sr0 console=ttyS0" 
+	-append "net.ifnames=0 root=/dev/sr0 console=ttyS0"
