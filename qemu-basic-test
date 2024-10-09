@@ -14,4 +14,4 @@ qemu-system-x86_64 -nographic -serial mon:stdio -m $mem -smp 4 \
 	-sd $2,index=0\
 	-hdb linux.erofs.img -hdc overlay.ext4.img \
 	-net nic,model=e1000 -net user \
-	-append "root=/dev/sda1 rw rootfstype=ext4 rdinit=sbin/init net.ifnames=0 console=ttyS0"
+	-append "root=/dev/sr0 net.ifnames=0 console=ttyS0"
