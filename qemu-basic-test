@@ -7,7 +7,6 @@ curl https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.4.140.tar.gz | tar -zx
 bin/mkfs.erofs $args linux.erofs.img linux-5.4.140 && rm -rf linux-5.4.140
 bin/fsck.erofs linux.erofs.img || exit 1
 fallocate -l 11g overlay.ext4.img && mkfs.ext2 -q overlay.ext4.img
-chmod +x basic_test.sh
 sync
 qemu-system-x86_64 -nographic -serial mon:stdio -m $mem -smp 4 \
 	--accel tcg,thread=multi -kernel $1 \
