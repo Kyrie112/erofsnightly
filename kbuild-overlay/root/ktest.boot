@@ -6,8 +6,8 @@ df -h
 mount
 # sleep 120
 # apt-get install -y curl build-essential git
-curl -L https://github.com/lz4/lz4/archive/refs/tags/v1.9.4.tar.gz | tar -zxv
-make BUILD_SHARED=no -C lz4-1.9.4 && lz4libdir=$(pwd)/lz4-1.9.4/lib
+# curl -L https://github.com/lz4/lz4/archive/refs/tags/v1.9.4.tar.gz | tar -zxv
+# make BUILD_SHARED=no -C lz4-1.9.4 && lz4libdir=$(pwd)/lz4-1.9.4/lib
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git -b experimental-tests
 
 # Build experimental-test branch of erofs-utils and run basic-test
