@@ -10,7 +10,7 @@ fallocate -l 11g overlay.ext4.img && mkfs.ext2 -q overlay.ext4.img
 sync
 qemu-system-x86_64 -nographic -serial mon:stdio -m $mem -smp 4 \
 	--accel tcg,thread=multi -kernel $1 \
-	-drive file=$2,index=0,readonly,media=cdrom \
+	-drive file=$2,index=0,media=cdrom \
 	-hdb linux.erofs.img -hdc overlay.ext4.img \
 	-net nic,model=e1000 -net user \
 	-append "net.ifnames=0 root=/dev/sr0 console=ttyS0"
