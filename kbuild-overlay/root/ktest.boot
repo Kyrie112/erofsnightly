@@ -3,7 +3,9 @@
 printf "Basic tests run in QEMU ..."
 # Download dependent test tools
 
-wget https://github.com/lz4/lz4/archive/refs/tags/v1.9.4.tar.gz -O lz4-1.9.4.tar.gz && tar -zxvf lz4-1.9.4.tar.gz
+wget https://github.com/lz4/lz4/archive/refs/tags/v1.9.4.tar.gz -O lz4-1.9.4.tar.gz 
+printf "Download lz4ok ..."
+tar -zxvf lz4-1.9.4.tar.gz
 make BUILD_SHARED=no -C lz4-1.9.4 && lz4libdir=$(pwd)/lz4-1.9.4/lib
 git clone git://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git -b experimental-tests
 
