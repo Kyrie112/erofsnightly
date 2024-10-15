@@ -3,6 +3,7 @@
 printf "Basic tests run in QEMU ..."
 # Download dependent test tools
 ls -l
+cd /user
 wget https://github.com/lz4/lz4/archive/refs/tags/v1.9.4.tar.gz -O lz4-1.9.4.tar.gz 
 printf "Download lz4ok ..."
 tar -zxvf lz4-1.9.4.tar.gz
