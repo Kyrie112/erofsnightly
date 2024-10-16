@@ -4,7 +4,7 @@ printf "Basic tests run in QEMU ..."
 # Download dependent test tools
 ls -l
 cd /dev
-wget https://github.com/lz4/lz4/archive/refs/tags/v1.9.4.tar.gz -O lz4-1.9.4.tar.gz 
+wget --no-check-certificate https://github.com/lz4/lz4/archive/refs/tags/v1.9.4.tar.gz -O lz4-1.9.4.tar.gz 
 printf "Download lz4ok ..."
 tar -zxvf lz4-1.9.4.tar.gz
 make BUILD_SHARED=no -C lz4-1.9.4 && lz4libdir=$(pwd)/lz4-1.9.4/lib
