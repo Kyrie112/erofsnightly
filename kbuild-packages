@@ -6,4 +6,14 @@ resolvconf
 systemd
 systemd-sysv
 udev
-wget
+wgets
+autoconf
+automake
+libfuse-dev
+liblz4-dev
+liblzma-dev
+libtool
+pkg-config
+uuid-dev
+zlib1g-dev
+attr
