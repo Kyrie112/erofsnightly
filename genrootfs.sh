@@ -12,7 +12,7 @@ run_in_chroot()
 
 MIRROR=http://mirrors.kernel.org/debian
 ROOTDIR=rootfs
-PACKAGES="make gcc flex bison libelf-dev libssl-dev dwarves autoconf automake libfuse-dev liblz4-dev liblzma-dev libtool pkg-config uuid-dev zlib1g-dev git"
+PACKAGES="make gcc flex bison libelf-dev libssl-dev dwarves autoconf automake libfuse-dev liblz4-dev liblzma-dev libtool pkg-config uuid-dev zlib1g-dev xattr git"
 if test -f kbuild-packages ; then
     PACKAGES="$PACKAGES $(cat kbuild-packages)"
 fi
