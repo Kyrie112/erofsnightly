@@ -6,7 +6,7 @@ resolvconf
 systemd
 systemd-sysv
 udev
-wgets
+wget
 autoconf
 automake
 libfuse-dev
