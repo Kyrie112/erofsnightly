@@ -33,9 +33,9 @@ find $ROOTDIR/usr/share/doc -type d | xargs rmdir --ignore-fail-on-non-empty -p
 rm -rf $ROOTDIR/usr/share/man
 find $ROOTDIR/var/log -type f | xargs rm
 
-# bin/mkfs.erofs -zlz4hc,12 -C32768 --random-pclusterblks $1 $ROOTDIR
-# bin/fsck.erofs $1 || exit 1
-fallocate -l 1g $1 && mkfs.ext4 $1
-mount $1 mnt
-cp -avr $ROOTDIR/* mnt/
-umount mnt
+bin/mkfs.erofs -zlz4hc,12 -C32768 --random-pclusterblks $1 $ROOTDIR
+bin/fsck.erofs $1 || exit 1
+# fallocate -l 1g $1 && mkfs.ext4 $1
+# mount $1 mnt
+# cp -avr $ROOTDIR/* mnt/
+# umount mnt
